@@ -3,6 +3,10 @@ Packer CSD
 
 # Descripción
 
+# Requerimientos
+
+- Ruby 2.+
+
 # Cómo generar la máquina Virtual?
 
 ## Paso 1: Descargar los módulos externos
@@ -20,4 +24,13 @@ Descargar los módulos:
 
 # Qué contiene?
 
+# Development
 
+Verificar la sintaxis de puppet
+	$ puppet parser validate manifests/init.pp
+
+Mostrar que va a hacer puppet pero sin cambiar nada
+	$ puppet apply –-noop --modulepath=modules:modules-vendor manifests/init.pp
+
+Reprosionar con vagrant luego del primer "vagrant up"
+	$ vagrant reload --provision
