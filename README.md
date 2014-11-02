@@ -3,13 +3,15 @@ Packer CSD
 
 # Descripción
 
+Script para generar una máquina virtual VBOX con las herramientas necesarias para el curso Certified Scrum Developer
+
 # Requerimientos
 
 - Ruby 2.+
 
 # Cómo generar la máquina Virtual?
 
-## #Paso 1: Instalar herramientas
+### Paso 1: Instalar herramientas
 
 Packer:
 

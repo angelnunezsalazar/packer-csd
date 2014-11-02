@@ -1,5 +1,6 @@
-.tmp/
-provisioning/modules-vendor/
+.tmp
+.vagrant
+provisioning/modules-vendor
 output-*
 packer_cache
 

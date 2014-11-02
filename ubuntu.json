@@ -21,7 +21,7 @@
         "iso_checksum": "3aa14ca13d52df070870d39306f4a4eb",
         "iso_checksum_type": "md5",
 
-        "http_directory" : "http",
+        "http_directory" : "preseed",
         "http_port_min" : 9001,
         "http_port_max" : 9001,
 
@@ -47,6 +47,11 @@
     "provisioners": [{
         "type": "shell",
         "execute_command": "echo {{user `admin_pass`}} |sudo -S sh '{{.Path}}'",
-         "scripts": ["scripts/postinstall.sh"]
+        "script": "post_install/script.sh"
+    },
+    {
+        "type": "puppet-masterless",
+        "manifest_file": "provisioning/site.pp",
+        "module_paths": [ "provisioning/modules", "provisioning/modules-vendor" ]
     }]
 }
