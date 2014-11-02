@@ -9,18 +9,19 @@ Packer CSD
 
 # Cómo generar la máquina Virtual?
 
-## Paso 1: Descargar los módulos externos
+## Paso 1: Instalar herramientas
 
-Instalar librarian-puppet:
+Packer:
+	http://www.packer.io/docs/installation.html
 
+Librarian-puppet:
     $ gem install librarian-puppet
 
-Descargar los módulos:
-    $ librarian-puppet install --path modules-vendor
-
-## Paso 2: Descargar e instalar packer
+## Paso 2: Descargar módulos externos para el provisionamiento
+    $ librarian-puppet install --path provisioning/modules-vendor
 
 ## Paso 3: Generar la máquina virtual
+	$ gem build ubuntu.json
 
 # Qué contiene?
 - JDK
@@ -30,6 +31,9 @@ Descargar los módulos:
 - RVM, Ruby
 
 # Development
+
+Instalar puppet:
+	https://docs.puppetlabs.com/guides/install_puppet/pre_install.html
 
 Verificar la sintaxis de puppet
 	$ puppet parser validate manifests/init.pp

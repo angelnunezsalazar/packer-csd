@@ -1,3 +1,5 @@
 .tmp/
-modules-vendor/
-output-virtualbox-iso
+provisioning/modules-vendor/
+output-*
+packer_cache
+
