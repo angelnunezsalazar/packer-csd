@@ -1,1 +1,2 @@
 pasar a una versión de ruby decente
+gemset "csd" como default

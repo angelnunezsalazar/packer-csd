@@ -28,6 +28,10 @@ rvm_gemset { "${ruby_version}@${gemset}":
     ensure  => present
 }
 ->
+exec { 'default gemset':
+	  	command => "rvm --default ${ruby_version}@${gemset}"
+}
+->
 rvm_gem { $gems:
     ruby_version => "${ruby_version}@${gemset}",
     ensure       => latest,

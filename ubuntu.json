@@ -1,0 +1,52 @@
+{
+    "variables": {
+        "admin_name": "kleer",
+        "admin_pass": "kleer"
+    },
+
+    "builders": [{
+        "type": "virtualbox-iso",
+        "guest_os_type": "Ubuntu",
+        "name": "CSD",
+
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "2048"]
+        ],
+
+        "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+        
+        "disk_size" : 10000,
+
+        "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-i386.iso",
+        "iso_checksum": "3aa14ca13d52df070870d39306f4a4eb",
+        "iso_checksum_type": "md5",
+
+        "http_directory" : "http",
+        "http_port_min" : 9001,
+        "http_port_max" : 9001,
+
+        "ssh_username": "{{user `admin_name`}}",
+        "ssh_password": "{{user `admin_pass`}}",
+        "ssh_wait_timeout": "20m",
+
+        "shutdown_command": "echo {{user `admin_pass`}} | sudo -S shutdown -P now",
+        "shutdown_timeout": "2m",
+
+        "boot_command" : [
+            "<esc><esc><enter><wait>",
+            "/install/vmlinuz noapic ",
+            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+            "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+            "hostname={{ .Name }} <wait>",
+            "fb=false debconf/frontend=noninteractive ",
+            "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+            "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+            "initrd=/install/initrd.gz -- <enter>"
+        ]
+    }],
+    "provisioners": [{
+        "type": "shell",
+        "execute_command": "echo {{user `admin_pass`}} |sudo -S sh '{{.Path}}'",
+         "scripts": ["scripts/postinstall.sh"]
+    }]
+}

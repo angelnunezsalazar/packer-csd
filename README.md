@@ -23,6 +23,11 @@ Descargar los módulos:
 ## Paso 3: Generar la máquina virtual
 
 # Qué contiene?
+- JDK
+- Jenkins (Puerto 8008)
+- Apache
+- Subversion (Puerto 80)
+- RVM, Ruby
 
 # Development
 
@@ -34,3 +39,6 @@ Mostrar que va a hacer puppet pero sin cambiar nada
 
 Reprosionar con vagrant luego del primer "vagrant up"
 	$ vagrant reload --provision
+
+Verificar el template de packer
+	$ packer validate ubuntu.json
