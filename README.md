@@ -1,11 +1,11 @@
 Packer CSD
 ==========
 
-# Descripción
+## Descripción
 
 Script para generar una máquina virtual VBOX con las herramientas necesarias para el curso Certified Scrum Developer
 
-# Requerimientos
+## Requerimientos
 
 - Ruby 2.+
 
@@ -27,14 +27,14 @@ Librarian-puppet:
 ### Paso 3: Generar la máquina virtual
 	$ gem build ubuntu.json
 
-# Qué contiene?
+## Qué contiene?
 - JDK
 - Jenkins (Puerto 8008)
 - Apache
 - Subversion (Puerto 80)
 - RVM, Ruby
 
-# Development
+## Development
 
 Instalar puppet:
 
@@ -42,7 +42,7 @@ Instalar puppet:
 
 Verificar la sintaxis de puppet
 
-	$ puppet parser validate manifests/init.pp
+	$ puppet parser validate provisioning/manifests/init.pp
 
 Mostrar que va a hacer puppet pero sin cambiar nada
 
