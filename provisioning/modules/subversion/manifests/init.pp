@@ -1,11 +1,10 @@
 #https://github.com/ghoneycutt/puppet-svn
 
-class subversion{
+class subversion($user_and_password = 'vagrant'){
 	Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 	
 	$repositories_path = '/srv/svn/'
 	$default_repository_name='default-repository'
-	$default_user_name_password='vagrant'
 	
 	class { 'apache': }
 
@@ -40,7 +39,7 @@ class subversion{
 	}
 
 	exec { 'add default user':
-	  	command => "htpasswd -c -b /etc/apache2/dav_svn.passwd ${default_user_name_password} ${default_user_name_password}",
+	  	command => "htpasswd -c -b /etc/apache2/dav_svn.passwd ${user_and_password} ${user_and_password}",
 	  	creates => '/etc/apache2/dav_svn.passwd',
 		require => Package['apache2-utils']
 	}
