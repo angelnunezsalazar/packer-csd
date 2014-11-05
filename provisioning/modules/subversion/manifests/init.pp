@@ -1,10 +1,9 @@
 #https://github.com/ghoneycutt/puppet-svn
 
-class subversion($user_and_password = 'vagrant'){
+class subversion($user = 'vagrant', $password = 'vagrant', $repository_name='default-repository'){
 	Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 	
 	$repositories_path = '/srv/svn/'
-	$default_repository_name='default-repository'
 	
 	class { 'apache': }
 
@@ -39,20 +38,20 @@ class subversion($user_and_password = 'vagrant'){
 	}
 
 	exec { 'add default user':
-	  	command => "htpasswd -c -b /etc/apache2/dav_svn.passwd ${user_and_password} ${user_and_password}",
+	  	command => "htpasswd -c -b /etc/apache2/dav_svn.passwd ${user} ${password}",
 	  	creates => '/etc/apache2/dav_svn.passwd',
 		require => Package['apache2-utils']
 	}
 
 	exec { 'create default repository':
-	  	command => "svnadmin create ${repositories_path}/${default_repository_name}",
-	  	creates => "${repositories_path}/${default_repository_name}",
+	  	command => "svnadmin create ${repositories_path}/${repository_name}",
+	  	creates => "${repositories_path}/${repository_name}",
 		require => [Package['subversion'], File[$repositories_path]]
 	}
 	
 	file { 'default repository permissions' :
 		ensure 	=> directory,
-		path    => "${repositories_path}/${default_repository_name}",
+		path    => "${repositories_path}/${repository_name}",
 		owner	=> 'www-data',
 		group 	=> 'subversion',
 		mode   	=> 2660,

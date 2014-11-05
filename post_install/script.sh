@@ -1,4 +1,4 @@
-ADMIN_NAME="Kleer"
+DEFAULT_USER="vagrant"
 
 # Install necessary libraries for guest additions and vagrant
 apt-get -y update
@@ -14,9 +14,9 @@ sh /mnt/VBoxLinuxAdditions.run
 umount /mnt
 rm VBoxGuestAdditions_$VBOX_VERSION.iso
 
-echo "Setup sudo to allow no-password sudo for 'admin'"
+echo "Setup sudo to allow no-password sudo for 'admin group'"
 groupadd -r admin
-usermod -a -G admin $ADMIN_NAME
+usermod -a -G admin $DEFAULT_USER
 cp /etc/sudoers /etc/sudoers.orig
 sed -i -e '/Defaults\s\+env_reset/a Defaults\texempt_group=admin' /etc/sudoers
 sed -i -e 's/%admin ALL=(ALL) ALL/%admin ALL=NOPASSWD:ALL/g' /etc/sudoers
@@ -28,11 +28,8 @@ apt-get update
 apt-get -y install puppet
 
 ### Cleaning
-echo "Remove iitems used for building"
+echo "Remove items used for building"
 apt-get -y remove linux-headers-$(uname -r) build-essential
 apt-get -y autoremove
 
-echo "Zero out the free space to save space in the final image"
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
 exit
