@@ -17,8 +17,8 @@
         
         "disk_size" : 10000,
 
-        "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-i386.iso",
-        "iso_checksum": "3aa14ca13d52df070870d39306f4a4eb",
+        "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-desktop-i386.iso",
+        "iso_checksum": "a4fc15313ef2a516bfbf83ce44281535",
         "iso_checksum_type": "md5",
 
         "http_directory" : "preseed",
@@ -35,7 +35,7 @@
         "boot_command" : [
             "<esc><esc><enter><wait>",
             "/install/vmlinuz noapic ",
-            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-server.cfg ",
+            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-desktop.cfg ",
             "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
             "hostname={{ .Name }} <wait>",
             "fb=false debconf/frontend=noninteractive ",
