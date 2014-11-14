@@ -36,7 +36,7 @@ class csd::jenkins_and_plugins{
 class csd::ruby{
 	$rvm_version='1.25.32'
 	$ruby_version='ruby-1.9.3'
-	$rvm_users=[$::user]
+	$rvm_users=['vagrant',$::user]
 	$gemset='csd'
 	$gems = ['rspec','cucumber','sinatra']
 
@@ -91,8 +91,14 @@ class { 'csd::kleer_user':
 	stage => 'pre'
 }
 
+class { 'csd::jenkins_and_plugins':}
 
+class { 'subversion':
+	user => $::user,
+	password => $::user
+}
 
 class {'csd::ruby':}
 
+class {'csd::desktop_apps':}
 
