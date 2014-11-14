@@ -36,7 +36,6 @@ class csd::jenkins_and_plugins{
 class csd::ruby{
 	$rvm_version='1.25.32'
 	$ruby_version='ruby-1.9.3'
-	$rvm_users=['vagrant',$::user]
 	$gemset='csd'
 	$gems = ['rspec','cucumber','sinatra']
 
@@ -48,7 +47,7 @@ class csd::ruby{
 		version => $rvm_version
 	}
 	->
-	rvm::system_user { $rvm_users:}
+	rvm::system_user { $::user:}
 	->
 	rvm_system_ruby { $ruby_version:
 	    ensure      => present,
