@@ -1,9 +1,9 @@
 DEFAULT_USER="vagrant"
 
-# Install necessary libraries for guest additions and vagrant
+echo "Install necessary libraries for guest additions and vagrant"
 apt-get -y update
 apt-get -y upgrade
-apt-get -y install linux-headers-$(uname -r)
+apt-get -y install linux-headers-$(uname -r) build-essential
 apt-get clean
 
 echo "Installing Virtualbox guest additions"
@@ -26,10 +26,5 @@ wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
 dpkg -i puppetlabs-release-trusty.deb
 apt-get update
 apt-get -y install puppet
-
-### Cleaning
-echo "Remove items used for building"
-apt-get -y remove linux-headers-$(uname -r) build-essential
-apt-get -y autoremove
 
 exit

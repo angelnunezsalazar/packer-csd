@@ -9,7 +9,7 @@ class csd::update{
 }
 
 class csd::kleer_user{
-	user{$user:
+	user{$::user:
 		ensure     => present,
 	  	managehome => true,
 		groups 	   => ['sudo'],
@@ -26,8 +26,7 @@ class csd::kleer_user{
 }
 
 class csd::jenkins_and_plugins{
-	$plugins = ['greenballs','jacoco','violations','msbuild',
-			'htmlpublisher','mstestrunner','mstest']
+	$plugins = ['greenballs','jacoco','violations','htmlpublisher']
 
 	class { 'jenkins':}
 
@@ -37,7 +36,7 @@ class csd::jenkins_and_plugins{
 class csd::ruby{
 	$rvm_version='1.25.32'
 	$ruby_version='ruby-1.9.3'
-	$rvm_users=['vagrant',$user]
+	$rvm_users=['vagrant',$::user]
 	$gemset='csd'
 	$gems = ['rspec','cucumber','sinatra']
 
@@ -46,8 +45,7 @@ class csd::ruby{
 	}
 	->
 	class { 'rvm':
-		version => $rvm_version,
-		require => User[$user]
+		version => $rvm_version
 	}
 	->
 	rvm::system_user { $rvm_users:}
@@ -67,6 +65,18 @@ class csd::ruby{
 	}
 }
 
+class csd::desktop_apps{
+	$apps = ["firefox","gedit","rapidsvn"]
+	
+	define install_app {
+		package { $apps:
+			ensure => present
+		}
+	}
+	
+	install_app { $apps : }
+}
+
 
 stage { 'pre':
   before => Stage["main"],
@@ -83,9 +93,11 @@ class { 'csd::kleer_user':
 class { 'csd::jenkins_and_plugins':}
 
 class { 'subversion':
-	user => $user,
-	password => $user
+	user => $::user,
+	password => $::user
 }
 
 class {'csd::ruby':}
+
+class {'csd::desktop_apps':}
 

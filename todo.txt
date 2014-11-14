@@ -2,4 +2,3 @@
 - que configuración de red esta usando
 - ports redirect
 - dividir en múltiples archivos el manifest
-- agregar instalación de paquetes
