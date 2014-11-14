@@ -1,7 +1,7 @@
 {
     "variables": {
-        "admin_name": "vagrant",
-        "admin_pass": "vagrant"
+        "admin_name": "kleer",
+        "admin_pass": "kleer"
     },
 
     "builders": [{

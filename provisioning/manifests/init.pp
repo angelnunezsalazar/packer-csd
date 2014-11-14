@@ -36,7 +36,7 @@ class csd::jenkins_and_plugins{
 class csd::ruby{
 	$rvm_version='1.25.32'
 	$ruby_version='ruby-1.9.3'
-	$rvm_users=['vagrant',$::user]
+	$rvm_users=[$::user]
 	$gemset='csd'
 	$gems = ['rspec','cucumber','sinatra']
 
@@ -63,18 +63,19 @@ class csd::ruby{
 	    ruby_version => "${ruby_version}@${gemset}",
 	    ensure       => latest,
 	}
+	->
+	exec {"rvm to bash":
+		command => "echo 'source /etc/profile.d/rvm.sh' >> /home/${::user}/.bashrc",
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ]
+	}
 }
 
 class csd::desktop_apps{
 	$apps = ["firefox","gedit","rapidsvn"]
 	
-	define install_app {
-		package { $apps:
-			ensure => present
-		}
+	package { $apps:
+		ensure => present
 	}
-	
-	install_app { $apps : }
 }
 
 
@@ -90,14 +91,8 @@ class { 'csd::kleer_user':
 	stage => 'pre'
 }
 
-class { 'csd::jenkins_and_plugins':}
 
-class { 'subversion':
-	user => $::user,
-	password => $::user
-}
 
 class {'csd::ruby':}
 
-class {'csd::desktop_apps':}
 
