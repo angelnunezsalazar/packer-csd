@@ -7,7 +7,7 @@
     "builders": [{
         "type": "virtualbox-iso",
         "guest_os_type": "Ubuntu",
-        "name": "csd-ubuntu-desktop-virtualbox",
+        "name": "ubuntu-virtualbox",
 
         "vboxmanage": [
             ["modifyvm", "{{.Name}}", "--memory", "2048"]

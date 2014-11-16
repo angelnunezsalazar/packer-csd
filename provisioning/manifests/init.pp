@@ -59,8 +59,8 @@ class csd::ruby{
 	}
 	->
 	rvm_gem { $gems:
-	    ruby_version => "${ruby_version}@${gemset}",
 	    ensure       => latest,
+	    ruby_version => "${ruby_version}@${gemset}"
 	}
 	->
 	exec {"rvm to bash":
@@ -77,6 +77,16 @@ class csd::desktop_apps{
 	}
 }
 
+class csd::download_projects{
+	$svn_url = "http://svn.training.kleer.la/csd-master/"
+	$directory = "CSD"
+	exec { 'download projects':
+	  	command => "svn export ${svn_url} --username carlos --password car /home/${::user}/${directory}",
+	  	creates => "/home/${::user}/${directory}",
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+		require => Package['subversion']
+	}
+}
 
 stage { 'pre':
   before => Stage["main"],
@@ -100,4 +110,6 @@ class { 'subversion':
 class {'csd::ruby':}
 
 class {'csd::desktop_apps':}
+
+class {'csd::download_projects':}
 

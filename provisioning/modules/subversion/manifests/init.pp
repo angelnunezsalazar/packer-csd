@@ -18,9 +18,9 @@ class subversion($user = 'vagrant', $password = 'vagrant', $repository_name='def
 		ensure => present
   	}
 	
-	exec {'add vagrant to subversion':
-		unless => 'grep -q "subversion\\S*vagrant" /etc/group',
-		command => 'usermod -aG subversion vagrant',
+	exec {'add user to subversion':
+		unless => "grep -q 'subversion\\S*${user}' /etc/group",
+		command => "usermod -aG subversion ${user}",
 		require => Group['subversion']
 	}
 	
