@@ -29,10 +29,17 @@ Librarian-puppet:
 
 ## Qué contiene?
 - JDK
-- Jenkins (Puerto 8080)
+- Jenkins (Puerto 8080), Plugins (Greenballs)
 - Apache
 - Subversion (Puerto 80)
-- RVM, Ruby
+- RVM, Ruby, Gems (Cucumber,RSpec,Sinatra)
+- Desktop Apps (Firefox, Gedit, Rapidsvn)
+- Carpeta con ejercicios para el CSD
+
+## Cómo logearse?
+
+Usuario: kleer
+Password: kleer
 
 ## Development
 
