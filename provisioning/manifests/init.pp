@@ -47,7 +47,8 @@ class csd::ruby{
 		version => $rvm_version
 	}
 	->
-	rvm::system_user { $::user:}
+	rvm::system_user { $::user:
+	}
 	->
 	rvm_system_ruby { $ruby_version:
 	    ensure      => present,
@@ -62,10 +63,17 @@ class csd::ruby{
 	    ensure       => latest,
 	    ruby_version => "${ruby_version}@${gemset}"
 	}
-	->
+
+	exec{'default gemset':
+		command => "su - ${::user} -c 'rvm --default use ${ruby_version}@${gemset}'",
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
+		require => Rvm_Gemset["${ruby_version}@${gemset}"]
+	}
+	
 	exec {"rvm to bash":
 		command => "echo 'source /etc/profile.d/rvm.sh' >> /home/${::user}/.bashrc",
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ]
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+		require => Class['rvm']
 	}
 }
 

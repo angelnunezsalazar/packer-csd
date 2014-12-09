@@ -9,7 +9,7 @@ Script para generar una máquina virtual VBOX con las herramientas necesarias pa
 
 - Ruby 2.+
 
-# Cómo generar la máquina Virtual?
+## Cómo generar la máquina Virtual?
 
 ### Paso 1: Instalar herramientas
 
@@ -25,11 +25,11 @@ Librarian-puppet:
     $ librarian-puppet install --path provisioning/modules-vendor
 
 ### Paso 3: Generar la máquina virtual
-	$ gem build ubuntu.json
+	$ packer build ubuntu.json
 
 ## Qué contiene?
 - JDK
-- Jenkins (Puerto 8008)
+- Jenkins (Puerto 8080)
 - Apache
 - Subversion (Puerto 80)
 - RVM, Ruby
@@ -46,7 +46,7 @@ Verificar la sintaxis de puppet
 
 Mostrar que va a hacer puppet pero sin cambiar nada
 
-	$ puppet apply –-noop --modulepath=modules:modules-vendor manifests/init.pp
+	$ puppet apply manifests/init.pp –-noop --modulepath=modules:modules-vendor 
 
 Reprosionar con vagrant luego del primer "vagrant up"
 
